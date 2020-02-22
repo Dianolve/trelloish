@@ -1,0 +1,24 @@
+<style>
+    webview {
+        height: 100%;
+        width: 100%;
+    }
+</style>
+<webview src="https://trello.com" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:73.0) Gecko/20100101 Firefox/73.0"></webview>
+<script>
+    onload = () => {
+      const webview = document.querySelector('webview')
+      const indicator = document.querySelector('.indicator')
+  
+      const loadstart = () => {
+        indicator.innerText = 'loading...'
+      }
+  
+      const loadstop = () => {
+        indicator.innerText = ''
+      }
+  
+      webview.addEventListener('did-start-loading', loadstart)
+      webview.addEventListener('did-stop-loading', loadstop)
+    }
+  </script>

@@ -1,32 +1,35 @@
-const {
-    app,
-    BrowserWindow,
-    BrowserView,
-    ipcMain
-  } = require("electron");
+const { app, BrowserWindow, Menu, Tray, session } = require('electron')
+
 function createWindow () {
-    view = new BrowserView({
-        webPreferences: {
-          nodeIntegration: true,
-          preload: '/utils/inject.js' //using ytmdesktops method i guess???
-        }
-      });
-  win.loadURL('https://trello.com');
-  win.webContents.on('did-finish-load', ()=>{
-    let code = `
-    document.title = 'trelloish';
-    var authButton = document.getElementById("bottom-gradient");
-    authButton.style.display = 'none';
-    `;
-            win.webContents.executeJavaScript(code);
-    });
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      webviewTag : true
+    }
+  });
+  win.loadFile('index.html',
+  {userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:73.0) Gecko/20100101 Firefox/73.0'});
 }
+
+let tray = null
+app.on('ready', () => {
+  tray = new Tray('external-content.duckduckgo.com.jpg');
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Settings', click() { console.log('item 1 clicked'); }},
+    { label: 'Separator', type: 'separator' },
+    { label: 'Exit', click() {tray = null;app.quit();}},
+  ]);
+  tray.setToolTip('Trelloish');
+  tray.setContextMenu(contextMenu);
+});
 
 app.whenReady().then(createWindow);
 
-/* MACOS STANDARDS */
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    tray = null;
     app.quit();
   }
 });
@@ -36,4 +39,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-/*                 */
