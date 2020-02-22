@@ -4,7 +4,7 @@
   "description": "trello client made in electron!",
   "main": "index.js",
   "scripts": {
-    "test": ""
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
