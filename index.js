@@ -1,17 +1,25 @@
-const { app, BrowserWindow } = require('electron');
-
+const {
+    app,
+    BrowserWindow,
+    BrowserView,
+    ipcMain
+  } = require("electron");
 function createWindow () {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  });
-
+    view = new BrowserView({
+        webPreferences: {
+          nodeIntegration: true,
+          preload: '/utils/inject.js' //using ytmdesktops method i guess???
+        }
+      });
   win.loadURL('https://trello.com');
-
-  win.webContents.openDevTools(); //load devtools (dev only)
+  win.webContents.on('did-finish-load', ()=>{
+    let code = `
+    document.title = 'trelloish';
+    var authButton = document.getElementById("bottom-gradient");
+    authButton.style.display = 'none';
+    `;
+            win.webContents.executeJavaScript(code);
+    });
 }
 
 app.whenReady().then(createWindow);
