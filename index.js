@@ -1,16 +1,16 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
 
 function createWindow () {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: false
+      nodeIntegration: true
     }
-  })
+  });
 
-  win.loadURL('https://github.com');
-  
+  win.loadURL('https://trello.com');
+
   win.webContents.openDevTools(); //load devtools (dev only)
 }
 
