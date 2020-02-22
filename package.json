@@ -1,0 +1,23 @@
+{
+  "name": "trelloish",
+  "version": "0.0.1",
+  "description": "trello client made in electron!",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dianolve/trelloish.git"
+  },
+  "keywords": [
+    "electron",
+    "trello"
+  ],
+  "author": "Dianolve",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Dianolve/trelloish/issues"
+  },
+  "homepage": "https://github.com/Dianolve/trelloish#readme"
+}
