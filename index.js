@@ -5,12 +5,12 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: false
     }
   })
 
-  win.loadFile('https://trello.com');
-
+  win.loadURL('https://github.com');
+  
   win.webContents.openDevTools(); //load devtools (dev only)
 }
 
@@ -21,11 +21,11 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
-})
+});
 
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
-})
+});
 /*                 */
