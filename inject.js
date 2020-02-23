@@ -10,13 +10,6 @@ content.addListener("will-navigate", function() {
     injectSettings();
 });
 
-content.addListener("console-message", function(message) {
-    if(message === 'startsettingspls') {
-        let win = new BrowserWindow({ frame: false, width: 400, height: 200 });
-        win.loadFile('index.html');
-    }
-});
-
 
 function injectSettings() {
     var menu = `<i id="settingslogo" class="material-icons">settings</i>`;
@@ -28,11 +21,9 @@ function injectSettings() {
     document.body.prepend(materialIcons);
     var menuDiv = document.createElement("div");
     menuDiv.setAttribute('id', 'settingsMenu');
+    menuDiv.addEventListener('click', function() { ipcRenderer.send('show-settings', true); } )
     menuDiv.innerHTML = '${menu}';
-        document.body.prepend(menuDiv);;
-        document.getElementById("settingsMenu").addEventListener("click", function(){
-            console.log('startsettingspls');
-          }); 
+    document.body.prepend(menuDiv);;
     `);
     content.insertCSS(`
     @keyframes fadeOut {
