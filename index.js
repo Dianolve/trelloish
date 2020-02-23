@@ -1,45 +1,21 @@
-const { app, BrowserWindow, Menu, Tray, session, ipcMain, ipcRenderer  } = require('electron')
+const { app, BrowserWindow, Menu, Tray, session, ipcMain, ipcRenderer  } = require('electron');
+const path = require("path");
 
   app.on('ready', () => {
-    let win = null;
-    let loading = new BrowserWindow({show: false, title: 'Trelloish'});
-  
-    loading.once('show', () => {
-      win = new BrowserWindow({
+        win = new BrowserWindow({
         darkTheme: true,
         title: 'Trelloish',
-        show: false,
         webPreferences: {
+          preload: path.join(__dirname, 'inject.js'),
           nodeIntegration: true,
           contextIsolation: true
         }
       });
-      win.webContents.once('dom-ready', () => {
-        ipcMain.on('asynchronous-message', (event, arg) => {
-          console.log(arg) // prints "ping"
-          event.reply('asynchronous-reply', 'pong')
-        });
-        win.show();
-        win.ipcRenderer = ipcRenderer;
-        loading.hide();
-        loading.close();
-      });
-      // long loading html
-      win.loadURL('https://trello.com',
+      console.log(__dirname+'/inject.js');
+      win.webContents.loadURL('https://trello.com',
       {userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:73.0) Gecko/20100101 Firefox/73.0'});
-      win.webContents.executeJavaScript(`
-      var button = document.createElement("Button");
-      button.innerHTML = "=";
-      button.setAttribute('id', 'settingsMenu');
-      button.style = "bottom:1%;right:1%;position:fixed;border-radius:100px;height:50px;width:50px;border:0px;background-color:#252525;color:white;font-size:30px;"
-      document.body.prepend(button); 
-      document.getElementById('settingsMenu').onclick = function(){ ipcRenderer.send('asynchronous-message', 'ping') }; 
-      `);
 
     });
-    loading.loadFile('index.html');
-    loading.show();
-  })
 
 let tray = null
 app.on('ready', () => {
