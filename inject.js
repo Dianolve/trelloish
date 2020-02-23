@@ -27,8 +27,11 @@ function injectSettings() {
     content.insertCSS(`
     @keyframes fadeOut {
         0% { opacity: 1;}
-        99% { opacity: 0.3;}
         100% { opacity: 0.1;}
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0.1;}
+        100% { opacity: 1;}
     }
     #settingslogo {
         bottom:5px;
@@ -38,15 +41,14 @@ function injectSettings() {
         width:50px;
         border:0px;
         color:white;
+        animation: fadeOut 1s;
         opacity: 0.1;
     }
     #settingslogo:hover {
         cursor: pointer;
-        -webkit-transition: opacity .5s ease-in-out;
-        -moz-transition: opacity .5s ease-in-out;
-        -ms-transition: opacity .5s ease-in-out;
-        -o-transition: opacity .5s ease-in-out;
+        -webkit-transition: opacity 3s ease-in-out;
+        animation: fadeIn 1s;
         opacity: 1;
     }
-    `)
+    `);
 }
