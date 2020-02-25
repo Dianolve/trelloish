@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <title>Settings</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="settings.css">
+    </head>
+    <body>   
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'color')" id="defaultOpen">Colors</button>
+            <button class="tablinks" onclick="openCity(event, 'notif')">Notifications</button>
+            <button class="tablinks" onclick="openCity(event, 'add')">Additional Settings</button>
+          </div>
+          
+          <div id="color" class="tabcontent">
+            <h3>Color</h3>
+            <label class="label">
+                <div class="toggle">
+                    <input class="toggle-state" type="checkbox" name="check" value="check"/>
+                    <div class="toggle-inner">
+                        <div class="indicator"></div>
+                    </div>
+                    <div class="active-bg"></div>
+                </div>
+                <div class="label-text">idk men</div>
+            </label>  
+          </div>
+          
+          <div id="notif" class="tabcontent">
+            <h3>Notifications</h3>
+            <label class="label">
+                <div class="toggle">
+                    <input class="toggle-state" type="checkbox" name="check" value="check"/>
+                    <div class="toggle-inner">
+                        <div class="indicator"></div>
+                    </div>
+                    <div class="active-bg"></div>
+                </div>
+                <div class="label-text">idk men</div>
+            </label>  
+          </div>
+          
+          <div id="add" class="tabcontent">
+            <h3>Additional Settings</h3>
+            <label class="label">
+                <div class="toggle">
+                    <input class="toggle-state" type="checkbox" name="check" value="check"/>
+                    <div class="toggle-inner">
+                        <div class="indicator"></div>
+                    </div>
+                    <div class="active-bg"></div>
+                </div>
+                <div class="label-text">idk men</div>
+            </label>            
+          </div>
+        <script src="settings.js" async defer></script>
+    </body>
+</html>

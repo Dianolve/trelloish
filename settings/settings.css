@@ -1,0 +1,116 @@
+:root {
+    --background: #fff;
+    --text: black;
+  }
+
+body,html {
+    margin: 0px;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+* {box-sizing: border-box}
+
+.tab {
+  float: left;
+  border-right: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 30%;
+  height: 100vh;
+}
+
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  width: 70%;
+  height: 100%;
+}
+
+.label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .label-text {
+    margin-left: 8px;
+  }
+  
+  .toggle {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 0px;
+    isolation: isolate;
+    position: relative;
+    height: 24px;
+    width: 48px;
+    border-radius: 15px;
+    background: #d6d6d6;
+    overflow: hidden;
+  }
+  
+  .toggle-inner {
+    border: 0px;
+    z-index: 2;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    height: 22px;
+    width: 46px;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .active-bg {
+    border: 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200%;
+    background: #003dda;
+    transform: translate3d(-100%, 0, 0);
+    transition: transform 0.05s linear 0.17s;
+  }
+  
+  .toggle-state {
+    display: none;
+  }
+  
+  .indicator {
+    height: 100%;
+    width: 200%;
+    background: white;
+    border-radius: 13px;
+    transform: translate3d(-75%, 0, 0);
+    transition: transform 0.35s cubic-bezier(0.85, 0.05, 0.18, 1.35);
+  }
+  
+  .toggle-state:checked ~ .active-bg {
+     transform: translate3d(-50%, 0, 0);
+  }
+  
+  .toggle-state:checked ~ .toggle-inner .indicator {
+     transform: translate3d(25%, 0, 0);
+  }

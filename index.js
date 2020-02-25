@@ -22,7 +22,7 @@ app.on('ready', () => {
 
 var tray = null;
 app.on('ready', () => {
-  tray = new Tray('external-content.duckduckgo.com.jpg');
+  tray = new Tray(path.join(__dirname, '/img/external-content.duckduckgo.com.jpg'));
   var contextMenu = Menu.buildFromTemplate([
     { label: 'Settings', click() { console.log('item 1 clicked'); }},
     { label: 'Separator', type: 'separator' },
@@ -54,11 +54,11 @@ ipcMain.on('async-ipc', (event, arg) => {
         darkTheme: true,
         title: 'Settings',
         webPreferences: {
-          preload: path.join(__dirname, 'inject.js'),
           nodeIntegration: true,
           contextIsolation: true
         }
       });
+      set.loadFile(path.join(__dirname, '/settings/settings.html'));
     }
   }
 });
