@@ -26,8 +26,7 @@ function injectSettings() {
     materialIcons.setAttribute('rel', 'stylesheet');
     document.body.prepend(materialIcons);
     var menuDiv = document.createElement("div");
-    menuDiv.setAttribute('id', 'settingsMenu');
-    menuDiv.addEventListener('click', function() { ipcRenderer.send('show-settings', true); } );
+    menuDiv.setAttribute('id', 'settingsMenuTLI');
     menuDiv.innerHTML = menu;
     document.body.prepend(menuDiv);
     addStyleString(`
@@ -39,7 +38,7 @@ function injectSettings() {
         0% { opacity: 0.1;}
         100% { opacity: 1;}
     }
-    #settingslogo {
+    #settingsMenuTLI {
         bottom:5px;
         right:5px;
         position:fixed;
@@ -51,7 +50,7 @@ function injectSettings() {
         opacity: 0.1;
         z-indes: 999;
     }
-    #settingslogo:hover {
+    #settingsMenuTLI:hover {
         cursor: pointer;
         -webkit-transition: opacity 3s ease-in-out;
         animation: fadeIn 1s;
@@ -60,11 +59,15 @@ function injectSettings() {
   `);
 }
 
+function injectListeners() {
+    const settingsDiv = document.getElementById('settingsMenuTLI');
+    settingsDiv.addEventListener('click', () => { 
+        ipcRenderer.send('async-ipc', 'launch-settings'); 
+    });
+}
+
 document.addEventListener('DOMContentLoaded', (event) => {
     injectSettings();
-    const settingsDiv = document.querySelector('<?>');
-    settingsDiv.addEventListener('click', () => { 
-        ipcRenderer.send('test', 'ayy'); 
-    });
+    injectListeners();
 });
 
