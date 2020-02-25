@@ -1,2 +1,2 @@
 # trelloish
-trello client made in electron!
+unofficial trello client made in electron!
