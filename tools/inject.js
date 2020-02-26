@@ -16,7 +16,7 @@ isDarkMode = {
     registerListener: function(listener) {
       this.aListener = listener;
     }
-}
+};
 
 console.log(isDarkMode.a);
 
