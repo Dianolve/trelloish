@@ -20,6 +20,22 @@ if(config.get('darkMode') == true) {
   document.getElementById("darkmode").checked = true;
 }
 
+function makeDark(set) {
+  var background = document.getElementById('body'); //set #1c1e1f, set fff
+  let root = document.documentElement;
+  if(set) {
+    root.style.setProperty('--background',"#1c1e1f");
+    root.style.setProperty('--backgroundactive',"#191a1b");
+    root.style.setProperty('--text',"#fff");
+    //#191a1b
+  }
+  else {
+    root.style.setProperty('--background',"#fff");
+    root.style.setProperty('--backgroundactive',"rgb(233, 231, 231)");
+    root.style.setProperty('--text',"#black");
+  }
+}
+
 function check1() {
   old = config.get('darkMode');
   setInterval(function(){
