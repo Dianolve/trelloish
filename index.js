@@ -59,19 +59,15 @@ app.on('activate', () => {
 });
 
 // IPC Events <>
-
 ipcMain.on('async-ipc', (event, arg) => {
   switch (arg) {
     case "launch-settings": {
-      set = new BrowserWindow({
-        darkTheme: true,
-        title: 'Settings',
+      const mainWindow = new BrowserWindow({
         webPreferences: {
-          nodeIntegration: true,
-          contextIsolation: true
+            nodeIntegration: true
         }
-      });
-      set.loadFile(path.join(__dirname, '/settings/settings.html'));
+    });
+    mainWindow.loadFile(path.join(__dirname, '/settings/settings.html'));
     }
   }
 });

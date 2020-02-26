@@ -1,5 +1,5 @@
 const { ipcRenderer } = require('electron');
-const Config = require('./tools/config.js');
+const Config = require('../tools/config.js');
 
 const config = new Config({
   configName: 'user-preferences',
