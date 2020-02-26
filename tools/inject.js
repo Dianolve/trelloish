@@ -1,4 +1,32 @@
 const { ipcRenderer } = require('electron');
+const Config = require('./tools/config.js');
+
+const config = new Config({
+  configName: 'user-preferences',
+  defaults: {
+    windowBounds: { width: 800, height: 600 },
+    darkMode: {enabled: false}
+  }
+});
+
+isDarkMode = {
+    aInternal: config.get(darkMode),
+    aListener: function(val) {},
+    set a(val) {
+      this.aInternal = val;
+      this.aListener(val);
+    },
+    get a() {
+      return this.aInternal;
+    },
+    registerListener: function(listener) {
+      this.aListener = listener;
+    }
+}
+
+isDarkMode.registerListener(function(val) {
+    darkMode(true);
+});
 
 function addStyleString(str) {
     var node = document.createElement('style');
@@ -6,7 +34,7 @@ function addStyleString(str) {
     document.body.appendChild(node);
 }
 
-function darkMode() {
+function darkMode(set) {
     var background = document.getElementById('body'); //set #1c1e1f, set fff
     var bottomGradient = document.getElementById('bottom-gradient'); //-webkit-gradient(linear, left top, left bottom, from(#1c1e1f), color-stop(46%, #1c1e1f), color-stop(74%, #1c1e1f), to(#1c1e1f))
     var languagepicker = document.getElementById('language-picker'); //set #1c1e1f, set fff
@@ -17,6 +45,9 @@ function darkMode() {
     var accountform = document.getElementsByClassName('account-form');
     var formfield = document.getElementsByClassName('form-field'); //.atlassian-brand .inner-section .form-field google-button
     var googlebutton = document.getElementsByClassName('google-button');
+    if(set) {
+        background.style.backgroundColor = "#1c1e1f";
+    }
 }
 
 function injectSettings() {

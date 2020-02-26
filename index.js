@@ -1,24 +1,37 @@
-const { app, BrowserWindow, Menu, Tray, session, ipcMain, ipcRenderer  } = require('electron');
+const { app, BrowserWindow, Menu, Tray, session, ipcMain } = require('electron');
 const path = require("path");
+const Config = require('./tools/config.js');
 
 //Main Events <>
 
+const config = new Config({
+  configName: 'user-preferences',
+  defaults: {
+    windowBounds: { width: 800, height: 600 }
+  }
+});
+
 app.on('ready', () => {
+  let { width, height } = config.get('windowBounds');
   win = new BrowserWindow({
+    width: width,
+    height: height,
     darkTheme: true,
     title: 'Trelloish',
     webPreferences: {
-      preload: path.join(__dirname, 'inject.js'),
+      preload: path.join(__dirname, '/tools/inject.js'),
       nodeIntegration: true,
       contextIsolation: true
     }
   });
-  
-  console.log(__dirname+'/inject.js');
   win.webContents.loadURL('https://trello.com',
     {userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:73.0) Gecko/20100101 Firefox/73.0'});
-
+  win.on('resize', () => {
+      let { width, height } = win.getBounds();
+      config.set('windowBounds', { width, height });
+  });
 });
+
 
 var tray = null;
 app.on('ready', () => {
