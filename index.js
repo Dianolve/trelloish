@@ -7,16 +7,19 @@ const Config = require('./tools/config.js');
 const config = new Config({
   configName: 'user-preferences',
   defaults: {
-    windowBounds: { width: 800, height: 600 }
+    windowBounds: { width: 800, height: 600 },
+    darkMode: { set: false }
   }
 });
 
 app.on('ready', () => {
-  let { width, height } = config.get('windowBounds');
+  let { width, height} = config.get('windowBounds');
+  let { darkmode } = config.get('darkMode');
+  if (typeof config.get('darkMode') === 'object') config.set('darkMode', false);
   win = new BrowserWindow({
     width: width,
     height: height,
-    darkTheme: true,
+    darkTheme: darkmode,
     title: 'Trelloish',
     webPreferences: {
       preload: path.join(__dirname, '/tools/inject.js'),

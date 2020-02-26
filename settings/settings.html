@@ -1,23 +1,5 @@
 <!DOCTYPE html>
     <head>
-        <script>
-            const Config = require('../tools/config.js');
-
-            function toggledark() {
-  const config = new Config({
-    configName: 'user-preferences',
-    defaults: {
-      }
-  });
-  console.log(config.get("darkMode"));
-  if(config.get("darkMode") === 'true' || config.get("darkMode")) {
-  }
-  else {
-    console.log('setdarkk');
-    config.set('windowBounds', true);
-  }
-}
-        </script>
         <meta charset="utf-8">
         <title>Settings</title>
         <meta name="description" content="">
@@ -35,13 +17,13 @@
             <h3>Color</h3>
             <label class="label">
                 <div class="toggle">
-                    <input class="toggle-state" onclick="toggledark();" type="checkbox" name="check" value="check"/>
+                    <input id="darkmode" class="toggle-state" onclick="toggledark();" type="checkbox" name="check" value="check"/>
                     <div class="toggle-inner">
                         <div class="indicator"></div>
                     </div>
                     <div class="active-bg"></div>
                 </div>
-                <div class="label-text">idk men</div>
+                <div class="label-text">Dark Mode</div>
             </label>  
           </div>
           
@@ -55,7 +37,7 @@
                     </div>
                     <div class="active-bg"></div>
                 </div>
-                <div class="label-text">idk men</div>
+                <div class="label-text">Notifications</div>
             </label>  
           </div>
           
@@ -69,7 +51,7 @@
                     </div>
                     <div class="active-bg"></div>
                 </div>
-                <div class="label-text">idk men</div>
+                <div class="label-text">Discord RPC</div>
             </label>            
           </div>
         <script src="settings.js" async defer></script>

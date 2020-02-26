@@ -1,16 +1,10 @@
 const { ipcRenderer } = require('electron');
 const Config = require('../tools/config.js');
 
-const config = new Config({
-  configName: 'user-preferences',
-  defaults: {
-    windowBounds: { width: 800, height: 600 },
-    darkMode: {enabled: false}
-  }
-});
+const config = new Config({ configName: 'user-preferences' });
 
 isDarkMode = {
-    aInternal: config.get(darkMode),
+    aInternal: config.get('darkMode'),
     aListener: function(val) {},
     set a(val) {
       this.aInternal = val;
@@ -24,8 +18,18 @@ isDarkMode = {
     }
 }
 
+console.log(isDarkMode.a);
+
 isDarkMode.registerListener(function(val) {
-    darkMode(true);
+    console.log('var darkmode changed');
+    if(config.get('darkMode') == true) {
+        config.set('darkMode', false);
+        darkMode(false);
+    }
+    else if(config.get('darkMode') == false) {
+        config.set('darkMode', true);
+        darkMode(true);
+    }
 });
 
 function addStyleString(str) {
@@ -46,6 +50,7 @@ function darkMode(set) {
     var formfield = document.getElementsByClassName('form-field'); //.atlassian-brand .inner-section .form-field google-button
     var googlebutton = document.getElementsByClassName('google-button');
     if(set) {
+        console.log('darkmode enabled');
         background.style.backgroundColor = "#1c1e1f";
     }
 }
