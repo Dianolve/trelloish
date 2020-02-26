@@ -3,42 +3,13 @@ const Config = require('../tools/config.js');
 
 const config = new Config({ configName: 'user-preferences' });
 
-isDarkMode = {
-    aInternal: config.get('darkMode'),
-    aListener: function(val) {},
-    set a(val) {
-      this.aInternal = val;
-      this.aListener(val);
-    },
-    get a() {
-      return this.aInternal;
-    },
-    registerListener: function(listener) {
-      this.aListener = listener;
-    }
-};
-
-console.log(isDarkMode.a);
-
-isDarkMode.registerListener(function(val) {
-    console.log('var darkmode changed');
-    if(config.get('darkMode') == true) {
-        config.set('darkMode', false);
-        darkMode(false);
-    }
-    else if(config.get('darkMode') == false) {
-        config.set('darkMode', true);
-        darkMode(true);
-    }
-});
-
 function addStyleString(str) {
     var node = document.createElement('style');
     node.innerHTML = str;
     document.body.appendChild(node);
 }
 
-function darkMode(set) {
+function makeDark(set) {
     var background = document.getElementById('body'); //set #1c1e1f, set fff
     var bottomGradient = document.getElementById('bottom-gradient'); //-webkit-gradient(linear, left top, left bottom, from(#1c1e1f), color-stop(46%, #1c1e1f), color-stop(74%, #1c1e1f), to(#1c1e1f))
     var languagepicker = document.getElementById('language-picker'); //set #1c1e1f, set fff
@@ -50,12 +21,53 @@ function darkMode(set) {
     var formfield = document.getElementsByClassName('form-field'); //.atlassian-brand .inner-section .form-field google-button
     var googlebutton = document.getElementsByClassName('google-button');
     if(set) {
-        console.log('darkmode enabled');
-        background.style.backgroundColor = "#1c1e1f";
+        document.body.style.backgroundColor = "#1c1e1f";
+        document.body.style.color = "#fff";
+    }
+    else {
+        document.body.style.backgroundColor = "#fff";
+        document.body.style.color = "#172B4D";
     }
 }
 
+var old;
+
+function check1() {
+    old = config.get('darkMode');
+    setInterval(function(){
+        setTimeout(function(){
+            const configlive = new Config({ configName: 'user-preferences' });
+            if(configlive.get('darkMode') == old) {
+            }
+            else {
+                old = configlive.get('darkMode');
+                switch(configlive.get('darkMode')) {
+                    case true: {
+                        makeDark(true);
+                        break;
+                    }
+                    case false: {
+                        makeDark(false);
+                        break;
+                    }
+                }
+            }
+        }, 500);
+     }, 1000);
+}
+
 function injectSettings() {
+    switch(config.get('darkMode')) {
+        case true: {
+            makeDark(true);
+            break;
+        }
+        case false: {
+            makeDark(false);
+            break;
+        }
+    }
+    check1();
     var menu = '<i id="settingslogo" class="material-icons">settings</i>';
     var materialIcons = document.createElement('link');
     materialIcons.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');

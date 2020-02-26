@@ -20,6 +20,42 @@ if(config.get('darkMode') == true) {
   document.getElementById("darkmode").checked = true;
 }
 
+function check1() {
+  old = config.get('darkMode');
+  setInterval(function(){
+      setTimeout(function(){
+          const configlive = new Config({ configName: 'user-preferences' });
+          if(configlive.get('darkMode') == old) {
+          }
+          else {
+              old = configlive.get('darkMode');
+              switch(configlive.get('darkMode')) {
+                  case true: {
+                      makeDark(true);
+                      break;
+                  }
+                  case false: {
+                      makeDark(false);
+                      break;
+                  }
+              }
+          }
+      }, 500);
+   }, 1000);
+}
+
+switch(config.get('darkMode')) {
+  case true: {
+      makeDark(true);
+      break;
+  }
+  case false: {
+      makeDark(false);
+      break;
+  }
+}
+check1();
+
 function toggledark() {
   console.log(config.get('darkMode'));
   if(config.get('darkMode') == true) config.set('darkMode', false);
